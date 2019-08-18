@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>Initial Build</title>
+  </head>
+  <body>
+    <h2>Create a new quiz.</h2>
+    <hr>
+    <form  action="{{url_for('f1')}}" method="post">
+      Choose Class :
+      <input type="number" name="class" value="">
+      <hr>
+      Enter subject :
+      <input type="text" name="subject" value="">
+      <hr>
+      Choose chapter number :
+      <input type="number" name="chapter_number" value="">
+      <hr>
+      Enter complete chapter Name :
+      <input type="text" name="Chapter_name" value="">
+      <hr>
+      Enter the number of question :
+      <input type="number" name="No_of_questions" value="">
+      <hr>
+      <input type="submit" name="" value="Submit">
+    </form>
+  </body>
+</html>
