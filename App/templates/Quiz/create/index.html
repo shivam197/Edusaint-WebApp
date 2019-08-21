@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>Initial Build</title>
+  </head>
+  <body>
+    <h1>Quiz on Topic : {{Chapter_name[2:]}}</h1>
+    <hr>
+
+{% if i < No_of_questions  %}
+  <form  action="/admin/create_quiz_" method="post">
+    <h3>Question Number : {{i}}</h3>
+    Enter question:
+    {{ckeditor.create(name="question")}}
+    <hr>
+    Enter options ( if question is fill in the blanks, then leave this box empty ) :
+    {{ckeditor.create(name="options")}}
+    <hr>
+    Enter answer :
+    {{ckeditor.create(name="answer")}}
+    <hr>
+    Enter explanation :
+    {{ckeditor.create(name = "explanation")}}
+    <hr>
+
+    {{ ckeditor.load() }}
+    {{ ckeditor.config(name="question",height = 100) }}
+    {{ ckeditor.config(name="options",height = 100) }}
+    {{ ckeditor.config(name="answer",height = 100) }}
+    {{ ckeditor.config(name="explanation",height = 100) }}
+
+
+   <input type="submit" name="" value="Next">
+  </form>
+{% else %}
+<form  action="/admin/result" method="post">
+
+   <h3>Question Number : {{i}}</h3>
+   Enter question:
+   {{ckeditor.create(name="question")}}
+   Enter options ( if question is fill in the blanks, then leave this box empty ) :
+   {{ckeditor.create(name="options")}}
+   Enter answer :
+   {{ckeditor.create(name="answer")}}
+   Enter explanation :
+   {{ckeditor.create(name = "explanation")}}
+
+   {{ ckeditor.load() }}
+   {{ ckeditor.config(name="question",height = 100) }}
+   {{ ckeditor.config(name="options",height = 100) }}
+   {{ ckeditor.config(name="answer",height = 100) }}
+   {{ ckeditor.config(name="explanation",height = 100) }}
+
+ <input type="submit" name="" value="submit">
+</form>
+
+{% endif %}
+
+  </body>
+</html>
