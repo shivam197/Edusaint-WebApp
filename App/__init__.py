@@ -27,7 +27,7 @@ def f1():
     if req == 'Play Quiz':
         return redirect('/choose_quiz')
     elif req == 'Search Question':
-        return redirect('/upload_question')
+        return 'Broken right now !'
 
     if req == 'Admin':
         return render_template('start_admin.html')

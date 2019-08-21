@@ -1,8 +1,8 @@
 from flask import Flask,request,url_for,render_template,redirect,Blueprint
-import pytesseract
+#import pytesseract
 import pandas as pd
 from PIL import Image
-from difflib import SequenceMatcher
+#from difflib import SequenceMatcher
 import os
 
 dir = os.path.dirname(os.path.abspath(__name__)) + '/App/'
