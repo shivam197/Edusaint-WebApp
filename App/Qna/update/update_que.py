@@ -13,7 +13,6 @@ df  = pd.read_csv(dir+'dataset/qna_data/Data.csv')
 
 @update_que.route('/admin/upload')
 def f():
-
     return render_template('/ncert_solutions/update/intro.html')
 
 @update_que.route('/admin/upload_que', methods = ['GET','POST'])

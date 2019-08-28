@@ -14,7 +14,6 @@ pytesseract.pytesseract.tesseract_cmd = '/app/.apt/usr/bin/tesseract'
 
 @qna_search.route('/upload_question',methods =['GET','POST'])
 def get():
-    return "Inside ocr.py"
     return render_template('ncert_solutions/search/index.html')
 
 @qna_search.route('/answer',methods=['GET','POST'])
