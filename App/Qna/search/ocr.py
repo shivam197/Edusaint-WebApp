@@ -10,6 +10,8 @@ dir = os.path.dirname(os.path.abspath(__name__)) + '/App/'
 df = pd.read_csv('App/dataset/qna_data/data.csv')
 qna_search = Blueprint("qna_play", __name__)
 
+pytesseract.pytesseract.tesseract_cmd = '/app/.apt/usr/bin/tesseract'
+
 @qna_search.route('/upload_question',methods =['GET','POST'])
 def get():
 
