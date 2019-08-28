@@ -9,11 +9,11 @@ update_que = Blueprint('update_que',__name__)
 #update_que = Flask(__name__)
 dir = os.path.dirname(os.path.abspath(__name__))+'/App/'
 link = ""
-#df  = pd.read_csv(dir+'dataset/qna_data/data.csv')
+df  = pd.read_csv(dir+'dataset/qna_data/Data.csv')
 
 @update_que.route('/admin/upload')
 def f():
-    return "Inside Update que"
+
     return render_template('/ncert_solutions/update/intro.html')
 
 @update_que.route('/admin/upload_que', methods = ['GET','POST'])
@@ -63,5 +63,5 @@ def f2():
     d = pd.DataFrame([[str(question),str(link)]])
     d.columns = ['Questions','Link']
     df = df.append(d,ignore_index= True)
-    df.to_csv(dir + '/Dataset/qna_data/data.csv',index=False)
+    df.to_csv(dir + '/Dataset/qna_data/Data.csv',index=False)
     return render_template('ncert_solutions/update/result.html')

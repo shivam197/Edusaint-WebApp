@@ -32,8 +32,7 @@ Chapter = ""
 dir = str(os.path.dirname(os.path.abspath(__name__))) + "/App/"
 @quiz_app.route('/choose_quiz',methods = ['GET','POST'])
 def choose():
-    global dir,df,questions,correct_answer,explanation
-    return dir
+    global dir,df,questions,correct_answer,explanation  # dir = app/App
     df = pd.DataFrame()
     questions = {}
     correct_answer = {}
@@ -73,7 +72,7 @@ def quiz():
     open_quiz(directory)
     global df
 
-    #return '{}'.format(df.shape)
+    
     return render_template('Quiz/play/index.html', questions = questions, topic= Chapter[2:])
 
 
