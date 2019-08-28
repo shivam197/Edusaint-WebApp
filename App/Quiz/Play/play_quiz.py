@@ -32,8 +32,8 @@ Chapter = ""
 dir = str(os.path.dirname(os.path.abspath(__name__))) + "/App/"
 @quiz_app.route('/choose_quiz',methods = ['GET','POST'])
 def choose():
-    return dir
     global dir,df,questions,correct_answer,explanation
+    return dir
     df = pd.DataFrame()
     questions = {}
     correct_answer = {}
