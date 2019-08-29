@@ -30,37 +30,28 @@ Class = ""
 Subject = ""
 Chapter = ""
 dir = str(os.path.dirname(os.path.abspath(__name__))) + "/App/"
-@quiz_app.route('/choose_quiz',methods = ['GET','POST'])
+@quiz_app.route('/choose_quiz')
 def choose():
     global dir,df,questions,correct_answer,explanation  # dir = app/App/
     df = pd.DataFrame()
     questions = {}
     correct_answer = {}
     explanation = {}
-
     Classes = os.listdir(dir + 'dataset/quiz_data/')
-
     return render_template('Quiz/play/intro.html', Classes = Classes, i=1)
 
 @quiz_app.route('/choose_quiz/subject', methods = ['GET','POST'])
 def choose_sub():
     global Class,dir
-    Class = ''
-    Subjects = os.listdir(dir + 'dataset/quiz_data/')
-    if request.method == 'POST':
-        Class = request.form['Class']
-        Subjects = os.listdir(dir + 'dataset/quiz_data/' + str(Class))
+    Class = request.form['Class']
+    Subjects = os.listdir(dir + 'dataset/quiz_data/' + str(Class))
     return render_template('Quiz/play/intro.html', Subjects = Subjects,i =2)
 
 @quiz_app.route('/choose_quiz/chapter', methods = ['GET','POST'])
 def choose_ch():
     global Subject,Class,dir
-    Subject = ''
-    Chapters = os.listdir(dir + 'dataset/quiz_data/' + str(Class) + "/")
-    if request.method == 'POST':
-        Subject = request.form['Subject']
-        Chapters = os.listdir(dir + 'dataset/quiz_data/' + str(Class) + "/" + str(Subject))
-
+    Subject = request.form['Subject']
+    Chapters = os.listdir(dir + 'dataset/quiz_data/' + str(Class) + "/" + str(Subject))
     return render_template('Quiz/play/intro.html', Chapters = Chapters, i=3)
 
 @quiz_app.route('/quiz',methods=['GET','POST'])
