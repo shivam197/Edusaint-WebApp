@@ -23,6 +23,8 @@
         <br>
 
         {% endfor %}
+        <br>
+        <a href="/choose_quiz">Back</a>
     </form>
 
     {% elif i==2 %}
@@ -33,17 +35,20 @@
         <input type="submit" name="Subject" value="{{i}}" class="btn btn-primary" style = "margin-top: 15px; margin-left: 40px ">
         <br>
         {% endfor %}
+        <br>
+        <a href="/choose_quiz/subject">Back</a>
 
     </form>
 
-    {% else %}
+    {% elif i==3 %}
     <form action="/quiz" method="POST">
       <h3>Choose the chapter : </h3>
         {% for i in Chapters %}
         <input type="submit" name="Chapter" value="{{i}}" class="btn btn-primary" style = "margin-top: 15px; margin-left: 40px ">
         <br>
         {% endfor %}
-
+        <br>
+        <a href="/choose_quiz/chapter">Back</a>
     </form>
 
     {% endif %}
