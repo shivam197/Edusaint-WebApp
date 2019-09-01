@@ -17,7 +17,7 @@ Subject = ""
 Chapter = ""
 
 def init():
-    global df,questions,correct_answer,explanation,Class,Subject,Chapter
+    global df,questions,correct_answer,explanation,Class,Subject,Chapter,dir
     df = pd.DataFrame()
     questions = {}
     correct_answer = {}
@@ -25,6 +25,7 @@ def init():
     Class = ""
     Subject = ""
     Chapter = ""
+    dir = os.path.join(str(os.path.dirname(os.path.abspath(__name__))),"App")
 
 def open_quiz(directory):
     global df
@@ -40,41 +41,47 @@ def open_quiz(directory):
         explanation[df.iloc[i,0]] = df.iloc[i,3]
 
 
-dir = str(os.path.dirname(os.path.abspath(__name__))) + "/App/"
+dir = os.path.join(str(os.path.dirname(os.path.abspath(__name__))),"App")
+complete_dir = dir
 @quiz_app.route('/choose_quiz')
 def choose():
-    global dir
+    global dir,complete_dir
     init()
-    Classes = os.listdir(dir + 'dataset/quiz_data/')
-    return render_template('Quiz/play/intro.html', Classes = Classes, i=1, dir = (dir + 'dataset/quiz_data/'))
+    complete_dir = os.path.join(dir,"dataset","quiz_data")
+    Classes = os.listdir(complete_dir)
+    return render_template('Quiz/play/intro.html', Classes = Classes, i=1) #, dir = complete_dir)
 
 @quiz_app.route('/choose_quiz/subject', methods = ['GET','POST'])
 def choose_sub():
-    global Class,dir
+    global Class,dir,complete_dir
     if request.method == 'POST':
-        Class = request.form['Class']
-    Subjects = os.listdir(dir + 'dataset/quiz_data/' + str(Class))
-    return render_template('Quiz/play/intro.html', Subjects = Subjects,i =2, dir = (dir + 'dataset/quiz_data/' + str(Class)))
+        Class = str(request.form['Class'])
+    complete_dir = os.path.join(dir,"dataset","quiz_data",Class)
+    Subjects = os.listdir(complete_dir)
+    return render_template('Quiz/play/intro.html', Subjects = Subjects,i =2) #, dir = complete_dir)
 
 @quiz_app.route('/choose_quiz/chapter', methods = ['GET','POST'])
 def choose_ch():
-    global Subject,Class,dir
+    global Subject,Class,dir,complete_dir
     if request.method == 'POST':
-        Subject = request.form['Subject']
-    Chapters = os.listdir(dir + 'dataset/quiz_data/' + str(Class) + "/" + str(Subject))
-    return render_template('Quiz/play/intro.html', Chapters = Chapters, i=3, dir = (dir + 'dataset/quiz_data/' + str(Class) + "/" + str(Subject)))
+        Subject = str(request.form['Subject'])
+    complete_dir = os.path.join(dir,"dataset","quiz_data",Class,Subject)
+    Chapters = os.listdir(complete_dir)
+    return render_template('Quiz/play/intro.html', Chapters = Chapters, i=3) #, dir =complete_dir)
 
 @quiz_app.route('/quiz',methods=['GET','POST'])
 def quiz():
-    global Class,Subject,Chapter,dir
+    global Class,Subject,Chapter,dir,complete_dir
 
-    Chapter = request.form['Chapter']
-    l = os.listdir(dir + "dataset/quiz_data/" + str(Class) + "/" + str(Subject) + "/" + str(Chapter))
+    Chapter = str(request.form['Chapter'])
+    complete_dir = os.path.join(complete_dir,Chapter)
+    l = os.listdir(complete_dir)
     if len(l)>0:
         n = np.random.randint(1,len(l)+1)
-    directory = dir + "dataset/quiz_data/" + str(Class) + "/" + str(Subject) + "/" + str(Chapter) + "/" + str(n) + ".csv"
-    open_quiz(directory)
-    global df
+
+    complete_dir = os.path.join(complete_dir,(str(n) + '.csv'))
+    open_quiz(complete_dir)
+
     return render_template('Quiz/play/index.html', questions = questions, topic= Chapter[2:])
 
 
