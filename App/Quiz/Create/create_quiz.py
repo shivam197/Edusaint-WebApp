@@ -9,18 +9,29 @@ cq_app = Blueprint('Create_quiz',__name__)
 #ckeditor = CKEditor(cq_app)
 
 i = 0
-
 Class =0
 Subject =""
 Chapter = ""
 No_of_questions = 0
 Quiz_no = 0
 dir = str(os.path.dirname(os.path.abspath(__name__))) + "/App/"
-
 d_Que = pd.DataFrame()
 d_Opt = pd.DataFrame()
 d_Ans = pd.DataFrame()
 d_Exp = pd.DataFrame()
+
+def init():
+    i = 0
+    Class =0
+    Subject =""
+    Chapter = ""
+    No_of_questions = 0
+    Quiz_no = 0
+    dir = str(os.path.dirname(os.path.abspath(__name__))) + "/App/"
+    d_Que = pd.DataFrame()
+    d_Opt = pd.DataFrame()
+    d_Ans = pd.DataFrame()
+    d_Exp = pd.DataFrame()
 
 def preprocessing(question,options,answer,explanation):
     global d_Que,d_Opt,d_Ans,d_Exp
@@ -56,11 +67,13 @@ def preprocessing(question,options,answer,explanation):
 
 @cq_app.route('/admin/create')
 def f():
+    init()
     return render_template('Quiz/create/intro.html')
 
 @cq_app.route('/admin/create_quiz', methods = ['GET','POST'])
 def f1():
     global dir
+    init()
 
     l = os.listdir(dir + 'dataset/quiz_data')
     global Class
