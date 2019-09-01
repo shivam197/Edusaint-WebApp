@@ -23,7 +23,6 @@ def f():
 
 @app.route('/q',methods=['GET','POST'])
 def f1():
-    init()
     req = request.form['option']
 
     if req == 'Play Quiz':
