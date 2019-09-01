@@ -54,7 +54,7 @@ def choose():
 @quiz_app.route('/choose_quiz/subject', methods = ['GET','POST'])
 def choose_sub():
     global Class,dir,complete_dir
-    if request.method == 'POST':
+    if request.method in ["POST","post"]:
         Class = str(request.form['Class'])
     complete_dir = os.path.join(dir,"dataset","quiz_data",Class)
     Subjects = os.listdir(complete_dir)
@@ -63,7 +63,7 @@ def choose_sub():
 @quiz_app.route('/choose_quiz/chapter', methods = ['GET','POST'])
 def choose_ch():
     global Subject,Class,dir,complete_dir
-    if request.method == 'POST':
+    if request.method in ["POST","post"]:
         Subject = str(request.form['Subject'])
     complete_dir = os.path.join(dir,"dataset","quiz_data",Class,Subject)
     Chapters = os.listdir(complete_dir)

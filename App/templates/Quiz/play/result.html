@@ -49,18 +49,20 @@
 
                                 {% else %}
 
-                                  <li>
-                                    <span style = "background-color: #7ae376">Correct! Choosen option : {{answered[que][1]}}</span>
-                                  </li>
-                              {% endif %}
+                                   <li>
+                                     <span style = "background-color: #7ae376">Correct! Choosen option : {{answered[que][1]}}</span>
+                                   </li>
+                                {% endif %}
 
                             {% elif option ==  correct_answer[que] %}
                                 <li>
                                 <span style = "border: 3px solid #7ae376"> {{option}}</span>
                                 </li>
 
+                            {% else %}
+                              <li>{{option}}</li>
+
                             {% endif %}
-                          <li>{{option}}</li>
                       </ul>
                 {% endif %}
             {% endfor %}
