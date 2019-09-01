@@ -6,6 +6,7 @@ app = Flask(__name__)
 ckeditor = CKEditor(app)
 from App.Quiz.Create.create_quiz import cq_app
 from App.Quiz.Play.play_quiz import quiz_app
+from App.Quiz.Play.play_quiz import init
 
 from App.Qna.search.ocr import qna_search
 from App.Qna.update.update_que import update_que
@@ -22,6 +23,7 @@ def f():
 
 @app.route('/q',methods=['GET','POST'])
 def f1():
+    init()
     req = request.form['option']
 
     if req == 'Play Quiz':
