@@ -46,7 +46,7 @@ def choose():
     global dir
     init()
     Classes = os.listdir(dir + 'dataset/quiz_data/')
-    return render_template('Quiz/play/intro.html', Classes = Classes, i=1) #, dir = (dir + 'dataset/quiz_data/'))
+    return render_template('Quiz/play/intro.html', Classes = Classes, i=1, dir = (dir + 'dataset/quiz_data/'))
 
 @quiz_app.route('/choose_quiz/subject', methods = ['GET','POST'])
 def choose_sub():
@@ -54,7 +54,7 @@ def choose_sub():
     if request.method == 'POST':
         Class = request.form['Class']
     Subjects = os.listdir(dir + 'dataset/quiz_data/' + str(Class))
-    return render_template('Quiz/play/intro.html', Subjects = Subjects,i =2) #, dir = (dir + 'dataset/quiz_data/' + str(Class)))
+    return render_template('Quiz/play/intro.html', Subjects = Subjects,i =2, dir = (dir + 'dataset/quiz_data/' + str(Class)))
 
 @quiz_app.route('/choose_quiz/chapter', methods = ['GET','POST'])
 def choose_ch():
@@ -62,7 +62,7 @@ def choose_ch():
     if request.method == 'POST':
         Subject = request.form['Subject']
     Chapters = os.listdir(dir + 'dataset/quiz_data/' + str(Class) + "/" + str(Subject))
-    return render_template('Quiz/play/intro.html', Chapters = Chapters, i=3) #, dir = (dir + 'dataset/quiz_data/' + str(Class) + "/" + str(Subject)))
+    return render_template('Quiz/play/intro.html', Chapters = Chapters, i=3, dir = (dir + 'dataset/quiz_data/' + str(Class) + "/" + str(Subject)))
 
 @quiz_app.route('/quiz',methods=['GET','POST'])
 def quiz():
