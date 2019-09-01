@@ -47,7 +47,7 @@ complete_dir = dir
 def choose():
     global dir,complete_dir
     init()
-    complete_dir = os.path.join(dir,"dataset","quiz_data")
+    complete_dir = os.path.join(dir,"dataset","quizData")
     Classes = os.listdir(complete_dir)
     return render_template('Quiz/play/intro.html', Classes = Classes, i=1) #, dir = complete_dir)
 
@@ -56,7 +56,7 @@ def choose_sub():
     global Class,dir,complete_dir
     if request.method == 'POST':
         Class = str(request.form['Class'])
-    complete_dir = os.path.join(dir,"dataset","quiz_data",Class)
+    complete_dir = os.path.join(dir,"dataset","quizData",Class)
     Subjects = os.listdir(complete_dir)
     return render_template('Quiz/play/intro.html', Subjects = Subjects,i =2) #, dir = complete_dir)
 
@@ -65,7 +65,7 @@ def choose_ch():
     global Subject,Class,dir,complete_dir
     if request.method == 'POST':
         Subject = str(request.form['Subject'])
-    complete_dir = os.path.join(dir,"dataset","quiz_data",Class,Subject)
+    complete_dir = os.path.join(dir,"dataset","quizData",Class,Subject)
     Chapters = os.listdir(complete_dir)
     return render_template('Quiz/play/intro.html', Chapters = Chapters, i=3) #, dir =complete_dir)
 
