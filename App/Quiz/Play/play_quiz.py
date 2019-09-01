@@ -15,6 +15,8 @@ explanation = {}
 Class = ""
 Subject = ""
 Chapter = ""
+dir = ""
+complete_dir = ""
 
 def init():
     global df,questions,correct_answer,explanation,Class,Subject,Chapter,dir
@@ -26,6 +28,7 @@ def init():
     Subject = ""
     Chapter = ""
     dir = os.path.join(str(os.path.dirname(os.path.abspath(__name__))),"App")
+    complete_dir = dir
 
 def open_quiz(directory):
     global df
@@ -41,8 +44,7 @@ def open_quiz(directory):
         explanation[df.iloc[i,0]] = df.iloc[i,3]
 
 
-dir = os.path.join(str(os.path.dirname(os.path.abspath(__name__))),"App")
-complete_dir = dir
+
 @quiz_app.route('/choose_quiz')
 def choose():
     global dir,complete_dir
