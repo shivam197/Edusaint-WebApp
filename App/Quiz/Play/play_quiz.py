@@ -51,7 +51,7 @@ def choose():
     init()
     complete_dir = os.path.join(dir,"dataset","quiz_data")
     Classes = os.listdir(complete_dir)
-    return render_template('Quiz/play/intro.html', Classes = Classes, i=1, dir = complete_dir)
+    return render_template('Quiz/play/intro.html', Classes = Classes, i=1)
 
 @quiz_app.route('/choose_quiz/subject', methods = ['GET','POST'])
 def choose_sub():
@@ -60,7 +60,7 @@ def choose_sub():
         Class = str(request.form['Class'])
     complete_dir = os.path.join(dir,"dataset","quiz_data",Class)
     Subjects = os.listdir(complete_dir)
-    return render_template('Quiz/play/intro.html', Subjects = Subjects,i =2, dir = complete_dir)
+    return render_template('Quiz/play/intro.html', Subjects = Subjects, i=2)
 
 @quiz_app.route('/choose_quiz/chapter', methods = ['GET','POST'])
 def choose_ch():
@@ -69,7 +69,7 @@ def choose_ch():
         Subject = str(request.form['Subject'])
     complete_dir = os.path.join(dir,"dataset","quiz_data",Class,Subject)
     Chapters = os.listdir(complete_dir)
-    return render_template('Quiz/play/intro.html', Chapters = Chapters, i=3, dir =complete_dir)
+    return render_template('Quiz/play/intro.html', Chapters = Chapters, i=3)
 
 @quiz_app.route('/quiz',methods=['GET','POST'])
 def quiz():

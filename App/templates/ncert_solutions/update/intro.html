@@ -2,25 +2,18 @@
 <html lang="en" dir="ltr">
   <head>
     <meta charset="utf-8">
-    <title>Initial Build</title>
+    <title>Edit Question</title>
   </head>
   <body>
-    <h2>Upload Question.</h2>
-    <hr>
-    <form  action="/admin/upload_que" method="post">
-      Choose Class :
-      <input type="number" name="class" value="">
-      <hr>
-      Enter subject :
-      <input type="text" name="subject" value="">
-      <hr>
-      Choose chapter number :
-      <input type="number" name="chapter_number" value="">
-      <hr>
-      Enter complete chapter Name :
-      <input type="text" name="Chapter_name" value="">
-      <hr>
-      <input type="submit" name="" value="Submit">
+    <h2>Choose from the following options : </h2>
+
+    <form  action="/admin/upload" method="post">
+      <input type="submit"  value="Upload a new Question">
     </form>
+
+    <form  action="/admin/delete" method="post">
+      <input type="submit"  value="Delete existing question">
+    </form>
+    
   </body>
 </html>
