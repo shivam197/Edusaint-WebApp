@@ -74,7 +74,10 @@ def f():
 def f1():
     global dir
     init()
-
+    l = os.listdir(os.path.join(dir,'dataset'))
+    if len(l) == 0:
+        os.mkdir(os.path.join(dir,'dataset','quiz_data'))
+        
     l = os.listdir(dir + 'dataset/quiz_data')
     global Class
     Class = "Class " + str(request.form['class'])
