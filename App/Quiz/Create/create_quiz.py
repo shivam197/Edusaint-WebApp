@@ -33,6 +33,19 @@ def init():
     d_Ans = pd.DataFrame()
     d_Exp = pd.DataFrame()
 
+def delete():
+    del i
+    del Class
+    del Subject
+    del Chapter
+    del No_of_questions
+    del Quiz_no
+    del d_Que
+    del dir
+    del d_Opt
+    del d_Ans
+    del d_Exp
+
 def preprocessing(question,options,answer,explanation):
     global d_Que,d_Opt,d_Ans,d_Exp
     option = ""
@@ -77,7 +90,7 @@ def f1():
     l = os.listdir(os.path.join(dir,'dataset'))
     if len(l) == 0:
         os.mkdir(os.path.join(dir,'dataset','quiz_data'))
-        
+
     l = os.listdir(dir + 'dataset/quiz_data')
     global Class
     Class = "Class " + str(request.form['class'])
@@ -138,11 +151,14 @@ def result():
 
     preprocessing(que,options,answer,explanation)
 
-    global dQ,dO
+    global d_Que,d_Opt,d_Ans,d_Exp
 
     df = pd.concat([d_Que,d_Opt,d_Ans,d_Exp],axis=1)
     df.columns = ['Question','Options','Answer','Explanation']
 
     global Class,subject,Chapter,Quiz_no,dir
     df.to_csv(dir + "dataset/quiz_data/" + str(Class) + "/" + str(Subject) + "/" + str(Chapter) + "/" + str(Quiz_no) + ".csv",index=False)
+
+    del df
+    delete()
     return render_template('Quiz/create/result.html', Chapter = Chapter[2:])
