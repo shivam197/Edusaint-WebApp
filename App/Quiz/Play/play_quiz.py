@@ -1,4 +1,4 @@
-from flask import Blueprint, render_template, request, Flask
+from flask import Blueprint, render_template, request, Flask, flash,redirect
 import random, copy
 import pandas as pd
 import os
@@ -51,6 +51,9 @@ def choose():
     init()
     complete_dir = os.path.join(dir,"dataset","quiz_data")
     Classes = os.listdir(complete_dir)
+
+    if len(Classes) == 0:
+        return render_template('Quiz/play/error.html')
     return render_template('Quiz/play/intro.html', Classes = Classes, i=1)
 
 @quiz_app.route('/choose_quiz/subject', methods = ['GET','POST'])
@@ -81,8 +84,8 @@ def quiz():
     if len(l)>0:
         n = np.random.randint(1,len(l)+1)
 
-    complete_dir = os.path.join(complete_dir,(str(n) + '.csv'))
-    open_quiz(complete_dir)
+        complete_dir = os.path.join(complete_dir,(str(n) + '.csv'))
+        open_quiz(complete_dir)
 
     return render_template('Quiz/play/index.html', questions = questions, topic= Chapter[2:])
 

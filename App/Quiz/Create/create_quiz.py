@@ -9,8 +9,8 @@ cq_app = Blueprint('Create_quiz',__name__)
 #ckeditor = CKEditor(cq_app)
 
 i = 0
-Class =0
-Subject =""
+Class = 0
+Subject = ""
 Chapter = ""
 No_of_questions = 0
 Quiz_no = 0
@@ -34,6 +34,7 @@ def init():
     d_Exp = pd.DataFrame()
 
 def delete():
+    global i,Class,Subject,Chapter,No_of_questions,Quiz_no,d_Que,dir,d_Opt,d_Ans, d_Exp 
     del i
     del Class
     del Subject
@@ -143,7 +144,6 @@ def f2():
 
 @cq_app.route('/admin/result',methods = ['GET','POST'])
 def result():
-
     que = request.form.get('question')
     options = request.form.get('options')
     answer = request.form.get('answer')
@@ -158,7 +158,7 @@ def result():
 
     global Class,subject,Chapter,Quiz_no,dir
     df.to_csv(dir + "dataset/quiz_data/" + str(Class) + "/" + str(Subject) + "/" + str(Chapter) + "/" + str(Quiz_no) + ".csv",index=False)
-
+    Chap = Chapter[2:]
     del df
     delete()
-    return render_template('Quiz/create/result.html', Chapter = Chapter[2:])
+    return render_template('Quiz/create/result.html', Chapter = Chap)
