@@ -9,9 +9,9 @@ from App.Quiz.Play.play_quiz import quiz_app
 
 from App.Quiz.Play.play_quiz import init
 from App.Quiz.Create.create_quiz import init
-from App.Delete.delete_quiz import init
+from App.Delete.delete import init
 
-from App.Delete.delete_quiz import del_app
+from App.Delete.delete import del_app
 
 from App.Qna.search.ocr import qna_search
 from App.Qna.update.update_que import update_que
@@ -19,7 +19,7 @@ from App.Qna.update.update_que import update_que
 app.register_blueprint(Quiz.Create.create_quiz.cq_app)
 app.register_blueprint(Quiz.Play.play_quiz.quiz_app)
 
-app.register_blueprint(Delete.delete_quiz.del_app)
+app.register_blueprint(Delete.delete.del_app)
 
 app.register_blueprint(Qna.search.ocr.qna_search)
 app.register_blueprint(Qna.update.update_que.update_que)

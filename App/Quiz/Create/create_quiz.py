@@ -14,27 +14,28 @@ Subject = ""
 Chapter = ""
 No_of_questions = 0
 Quiz_no = 0
-dir = str(os.path.dirname(os.path.abspath(__name__))) + "/App/"
+directory = os.path.join((os.path.dirname(os.path.abspath(__name__))),"App")
 d_Que = pd.DataFrame()
 d_Opt = pd.DataFrame()
 d_Ans = pd.DataFrame()
 d_Exp = pd.DataFrame()
 
 def init():
+    global i,Class,Subject,Chapter,No_of_questions,Quiz_no,directory,d_Exp,d_Opt,d_Que,d_Ans
     i = 0
     Class =0
     Subject =""
     Chapter = ""
     No_of_questions = 0
     Quiz_no = 0
-    dir = str(os.path.dirname(os.path.abspath(__name__))) + "/App/"
+    directory = os.path.join((os.path.dirname(os.path.abspath(__name__))),"App")
     d_Que = pd.DataFrame()
     d_Opt = pd.DataFrame()
     d_Ans = pd.DataFrame()
     d_Exp = pd.DataFrame()
 
 def delete():
-    global i,Class,Subject,Chapter,No_of_questions,Quiz_no,d_Que,dir,d_Opt,d_Ans, d_Exp 
+    global i,Class,Subject,Chapter,No_of_questions,Quiz_no,d_Que,directory,d_Opt,d_Ans, d_Exp
     del i
     del Class
     del Subject
@@ -42,7 +43,7 @@ def delete():
     del No_of_questions
     del Quiz_no
     del d_Que
-    del dir
+    del directory
     del d_Opt
     del d_Ans
     del d_Exp
@@ -58,6 +59,7 @@ def preprocessing(question,options,answer,explanation):
             if len(i)>0:
                 option += i[3:-4] + '#'
             option = option.replace('&nbsp;','')
+        #All options are stored as a single sentence seperated by '#'
 
     answer = answer.replace('<p>','')
     answer = answer.replace('</p>','')
@@ -80,44 +82,47 @@ def preprocessing(question,options,answer,explanation):
     d_Exp = d_Exp.append(pd.DataFrame([explanation]))
 
 @cq_app.route('/admin/create')
-def f():
+def create_quiz_intro_function():
     init()
     return render_template('Quiz/create/intro.html')
 
 @cq_app.route('/admin/create_quiz', methods = ['GET','POST'])
-def f1():
-    global dir
+def create_quiz_function1():
+    global directory
     init()
-    l = os.listdir(os.path.join(dir,'dataset'))
+    l = os.listdir(os.path.join(directory,'dataset'))
+    directory = os.path.join(directory,'dataset','quiz_data')
     if len(l) == 0:
-        os.mkdir(os.path.join(dir,'dataset','quiz_data'))
+        os.mkdir(directory)
 
-    l = os.listdir(dir + 'dataset/quiz_data')
     global Class
     Class = "Class " + str(request.form['class'])
+    l = os.listdir(directory)
+    directory = os.path.join(directory,Class)
     if Class not in l:
-        os.mkdir(dir + "dataset/quiz_data/" + str(Class))
+        os.mkdir(directory)
 
     global Subject
     Subject = request.form['subject'].lower()
-    l = os.listdir(dir + 'dataset/quiz_data/'+ Class)
+    l = os.listdir(directory)
+    directory = os.path.join(directory,Subject)
     if Subject not in l:
-        os.mkdir(dir + "dataset/quiz_data/" + Class + "/" + str(Subject))
+        os.mkdir(directory)
 
     Chapter_name = request.form['Chapter_name'].lower()
     Chapter_no = request.form['chapter_number']
     global Chapter
     Chapter = str(Chapter_no) + ". " + str(Chapter_name[0].upper()) + str(Chapter_name[1:])
 
-    l = os.listdir(dir + "dataset/quiz_data/" + Class + "/" + str(Subject))
-
+    l = os.listdir(directory)
+    directory = os.path.join(directory,Chapter)
     if Chapter not in l:
-        os.mkdir(dir + "dataset/quiz_data/" + Class + "/" + str(Subject) + "/" + str(Chapter))
+        os.mkdir(directory)
 
     global Quiz_no
-    l = os.listdir(dir + "dataset/quiz_data/" + Class + "/" + str(Subject) + "/" + str(Chapter))
+    l = os.listdir(directory)
     Quiz_no = len(l) + 1
-
+    directory = os.path.join(directory,(str(Quiz_no) + ".csv"))
     global No_of_questions
     No_of_questions = int(request.form['No_of_questions'])
 
@@ -126,7 +131,7 @@ def f1():
     return render_template('Quiz/create/index.html',No_of_questions = No_of_questions, Chapter_name = Chapter,i=i)
 
 @cq_app.route('/admin/create_quiz_',methods = ['GET','POST'])
-def f2():
+def create_quiz_function2():
 
     que = request.form.get('question')
     options = request.form.get('options')
@@ -143,7 +148,7 @@ def f2():
     return render_template('Quiz/create/index.html',No_of_questions = No_of_questions , Chapter_name = Chapter, i=i)
 
 @cq_app.route('/admin/result',methods = ['GET','POST'])
-def result():
+def create_quiz_result():
     que = request.form.get('question')
     options = request.form.get('options')
     answer = request.form.get('answer')
@@ -156,8 +161,8 @@ def result():
     df = pd.concat([d_Que,d_Opt,d_Ans,d_Exp],axis=1)
     df.columns = ['Question','Options','Answer','Explanation']
 
-    global Class,subject,Chapter,Quiz_no,dir
-    df.to_csv(dir + "dataset/quiz_data/" + str(Class) + "/" + str(Subject) + "/" + str(Chapter) + "/" + str(Quiz_no) + ".csv",index=False)
+    global Class,subject,Chapter,Quiz_no,directory
+    df.to_csv(directory,index=False)
     Chap = Chapter[2:]
     del df
     delete()

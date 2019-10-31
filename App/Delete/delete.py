@@ -37,14 +37,7 @@ def choose():
         return render_template('Delete/intro.html', op = 2)
 
     elif choice == 'Delete Question Database':
-        np.savez(os.path.join(dir,'dataset','qna_data',"Data.npz"),Question = [], Link = [])
-        try:
-            shutil.rmtree(os.path.join(dir,'static'))
-        except:
-            pass
-        #os.mkdir(os.path.join(dir,'static'))
-        return render_template('Delete/result.html', msg = 'Question database cleared')
-
+        return render_template('Delete/confirm.html')
     elif choice == 'Delete by class':
         Class = 1
         Subject = 0
@@ -69,7 +62,6 @@ def choose():
         Chapter = 1
         Num = 1
         return redirect('/admin/choose_quiz')
-
 
 @del_app.route('/admin/choose_quiz', methods = ['GET','POST'])
 def choose1():
@@ -148,4 +140,19 @@ def result():
             shutil.rmtree(dir)
         return render_template('Delete/result.html',Subject=Subject,Chapter=Chapter,Class=Class, Num = Num)
     else:
-        redirect('/admin/delete')
+        return redirect('/admin/delete')
+
+
+@del_app.route('/admin/delete/result_questions', methods = ['GET','POST'])
+def questions_cleared():
+    if request.method == 'POST' or request.method == 'post':
+        choice = request.form['confirmation']
+    if choice == 'Yes':
+        np.savez(os.path.join(dir,'dataset','qna_data',"Data.npz"),Question = [], Link = [])
+        try:
+            shutil.rmtree(os.path.join(dir,'static'))
+        except:
+            pass
+        return render_template('Delete/result.html', msg = 'Question database cleared')
+    else:
+        return redirect('/admin/delete')
