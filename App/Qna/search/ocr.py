@@ -6,7 +6,7 @@ from difflib import SequenceMatcher
 import os
 import cv2
 import math
-dir = os.path.dirname(os.path.abspath(__name__)) + '/App/'
+dir = os.path.join(os.path.dirname(os.path.abspath(__name__)),"App")
 tessdata_dir_config = '--tessdata-dir "C:\\Program Files\\Tesseract-OCR\\tessdata"'
 pytesseract.pytesseract.tesseract_cmd = r'C:\Program Files\Tesseract-OCR\tesseract.exe'
 qna_search = Blueprint("qna_play", __name__)
@@ -50,6 +50,12 @@ def result():
 
     _, thresh = cv2.threshold(img, kmeans(input_img=img, k=8, i_val=2)[0], 255, cv2.THRESH_BINARY)
     text = pytesseract.image_to_string(thresh, lang='eng',config = tessdata_dir_config)
+
+    if "qna_data" not in os.listdir(os.path.join(dir,"dataset")):
+        os.mkdir(os.path.join(dir,"dataset","qna_data"))
+        os.mkdir(os.path.join(dir,"static"))
+        np.savez(os.path.join(dir,'dataset','qna_data',"Data.npz"),Question = [], Link = [])
+        return 'Error! No questions found in database!'
 
     df = np.load('App/dataset/qna_data/Data.npz')
     if len(df['Question']) == 0:

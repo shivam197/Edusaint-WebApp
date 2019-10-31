@@ -60,6 +60,9 @@ def open_quiz(directory):
 def play_quiz_init():
     global play_dir
     init()
+    if "quiz_data" not in os.listdir(os.path.join(play_dir,"dataset")):
+        os.mkdir(os.path.join(play_dir,"dataset","quiz_data"))
+        
     play_dir = os.path.join(play_dir,"dataset","quiz_data")
     Classes = os.listdir(play_dir)
 

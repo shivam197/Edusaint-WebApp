@@ -153,6 +153,7 @@ def questions_cleared():
             shutil.rmtree(os.path.join(dir,'static'))
         except:
             pass
+        os.mkdir(os.path.join(dir,"static"))
         return render_template('Delete/result.html', msg = 'Question database cleared')
     else:
         return redirect('/admin/delete')
