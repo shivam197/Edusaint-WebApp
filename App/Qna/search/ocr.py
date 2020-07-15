@@ -7,8 +7,8 @@ import os
 import cv2
 import math
 #For configuration of tesseract on windows
-#tessdata_dir_config = '--tessdata-dir "C:\\Program Files\\Tesseract-OCR\\tessdata"'
-#pytesseract.pytesseract.tesseract_cmd = r'C:\Program Files\Tesseract-OCR\tesseract.exe'
+tessdata_dir_config = '--tessdata-dir "C:\\Program Files (x86)\\Tesseract-OCR\\tessdata"'
+pytesseract.pytesseract.tesseract_cmd = 'C:/Program Files (x86)/Tesseract-OCR/tesseract.exe'
 qna_search = Blueprint("qna_play", __name__)
 
 ALLOWED_EXTENSIONS = ['png','jpg','jpeg','gif']
@@ -54,7 +54,7 @@ def result():
     img = cv2.cvtColor(img, cv2.COLOR_RGB2BGR)
 
     _, thresh = cv2.threshold(img, kmeans(input_img=img, k=8, i_val=2)[0], 255, cv2.THRESH_BINARY)
-    text = pytesseract.image_to_string(thresh, lang='eng') #,config = tessdata_dir_config)
+    text = pytesseract.image_to_string(thresh, lang='eng',config = tessdata_dir_config)
 
     if "qna_data" not in os.listdir(os.path.join(dir,"dataset")):
         os.mkdir(os.path.join(dir,"dataset","qna_data"))

@@ -2,7 +2,6 @@ from flask import Flask,render_template,url_for,request,redirect
 from flask_ckeditor import CKEditor
 
 app = Flask(__name__)
-app.secret_key = "secret key example"
 ckeditor = CKEditor(app)
 from App.Quiz.Create.create_quiz import cq_app
 from App.Quiz.Play.play_quiz import quiz_app
